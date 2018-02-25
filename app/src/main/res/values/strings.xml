@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">TFGApp</string>
+
+    <string name="setions_home">Home</string>
+
+    <string name="action_logIn">Log in</string>
+    <string name="action_logOut">Log out</string>
+    <string name="action_dashboard">Dashboard</string>
+
 </resources>

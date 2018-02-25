@@ -1,126 +1,131 @@
 package com.example.samuel.tfgapp;
 
-import android.support.annotation.Nullable;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.os.Bundle;
-import android.view.View;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.mongodb.MongoClient;
-import com.mongodb.MongoClientURI;
-import com.mongodb.client.FindIterable;
-import com.mongodb.client.MongoCursor;
-import com.mongodb.client.MongoDatabase;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 
-
-import org.bson.Document;
-
-import java.net.Socket;
-import java.util.Collections;
+import org.json.JSONArray;
+import org.json.JSONException;
 
 
 public class MainActivity extends AppCompatActivity {
-    Client mySocket = new Client("192.168.0.29", 8083);
 
-    TextView mainText;
-    String sexo;
-    ListView lista;
     ArrayAdapter<String> adaptador;
-
-    boolean ended = false;
-
-    private ProgressBar progressBar;
+    ListView lista;
+    Toolbar myToolbar;
+    Toast toast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        progressBar = findViewById(R.id.progressBar);
-        progressBar.setMax(10);
-
         adaptador = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
 
-        mySocket.setClientCallback(new Client.ClientCallback () {
-            MongoClientURI uri = new MongoClientURI( "mongodb://192.168.0.29:27017/dtb" );
-            MongoClient mongoClient = new MongoClient(uri);
-            final MongoDatabase db = mongoClient.getDatabase(uri.getDatabase());
+        setMyToolbar();
 
 
 
-            @Override
-            public void onMessage(String message) {
-            }
+        final TextView mTextView = (TextView) findViewById(R.id.mainText);
 
-            @Override
-            public void onConnect(Socket socket) {
-                mySocket.send("Hello World!\n");
+        // Instantiate the RequestQueue.
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url ="http://192.168.0.29:8082/v1/data.json";
 
-                FindIterable<Document> mydatabaserecords = db.getCollection("usoDeInternet").find();
-                MongoCursor<Document> iterator = mydatabaserecords.iterator();
+        // Request a string response from the provided URL.
 
-                //mydatabaserecords.
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String  response) {
+                        // Display the first 500 characters of the response string.
+                        System.out.println();
+                        try{
+                            JSONArray jsonArray = new JSONArray(response);
+
+                            for(int i = 0; i < jsonArray.length(); i++){
+                                String sexo = jsonArray.getJSONObject(i).getString("SEXO");
+                                adaptador.add(sexo);
+                            }
+                            adaptador.remove(null);
+                            System.out.println(jsonArray.getJSONObject(0).getString("SEXO"));
+
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
 
 
-                progressBar.setVisibility(View.VISIBLE);
-                progressBar.setProgress(5);
 
-                Document doc = iterator.next();
 
-                while (iterator.hasNext()) {
-                    doc = iterator.next();
 
-                    if(doc != null){
-                        String rangos = doc.getString("RANGOS");
-                        adaptador.add(rangos);
                     }
-                }
-
-                adaptador.remove(null);
-                mySocket.disconnect();
-            }
-
+                }, new Response.ErrorListener() {
             @Override
-            public void onDisconnect(Socket socket, String message) {
-
-                ended = true;
-
-            }
-
-            @Override
-            public void onConnectError(Socket socket, String message) {
+            public void onErrorResponse(VolleyError error) {
+                mTextView.setText("That didn't work!");
             }
         });
-
-        //
-        mySocket.connect();
-
-        int i = 0;
-        while(!ended){
-            i++;
-        }
-
-        //progressBar.setVisibility(View.GONE);
+        // Add the request to the RequestQueue.
+        queue.add(stringRequest);
 
         lista = (ListView) findViewById(R.id.list_man);
-        mainText = findViewById(R.id.mainText);
-        System.out.println("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE: " + adaptador.getItem(0));
-        mainText.setText(sexo);
-
-
-        adaptador.add("OLI");
         lista.setAdapter(adaptador);
+    }
 
+    private void setMyToolbar(){
+        myToolbar = findViewById(R.id.toolbar);
+        myToolbar.setTitle(R.string.setions_home);
+        myToolbar.setTitleTextColor(getResources().getColor(R.color.white));
+
+        setSupportActionBar(myToolbar);
 
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-
-
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.action_bar, menu);
+        return true;
     }
+
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_logIn:
+                toast = Toast.makeText(getApplicationContext(), "LogIn", Toast.LENGTH_SHORT);
+                toast.show();
+                return true;
+
+            case R.id.action_dashboard:
+                toast = Toast.makeText(getApplicationContext(), "Dasboard", Toast.LENGTH_SHORT);
+                toast.show();
+                return true;
+
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+
+        }
+    }
+
+
+
 }
