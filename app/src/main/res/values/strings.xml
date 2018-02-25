@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">TFGApp</string>
+    <string name="activity_second">Second Activity</string>
 
     <string name="setions_home">Home</string>
 
@@ -7,4 +8,12 @@
     <string name="action_logOut">Log out</string>
     <string name="action_dashboard">Dashboard</string>
 
+    <!-- Drawer View -->
+    <string name="drw_tittle">My drawer</string>
+    <string name="drw_science_technology">Science and Technology</string>
+    <string name="drw_maps">Maps</string>
+    <string name="drw_customers">Customers</string>
+    <string name="drw_reports">Reports</string>
+    <string name="drw_integration">Integration</string>
+    <!--  -->
 </resources>

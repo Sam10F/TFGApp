@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/drw_science_technology"
+            android:icon="@drawable/ic_science"
+            android:title="@string/drw_science_technology" />
+
+        <item
+            android:id="@+id/drw_maps"
+            android:icon="@drawable/ic_map"
+            android:title="@string/drw_maps" />
+        <item
+            android:id="@+id/drw_customers"
+            android:icon="@drawable/ic_customer"
+            android:title="@string/drw_customers" />
+        <item
+            android:id="@+id/drw_reports"
+            android:icon="@drawable/ic_report"
+            android:title="@string/drw_reports" />
+        <item
+            android:id="@+id/drw_integration"
+            android:icon="@drawable/ic_puzzle"
+            android:title="@string/drw_integration" />
+    </group>
+
+</menu>

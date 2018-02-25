@@ -1,13 +1,21 @@
 package com.example.samuel.tfgapp;
 
+import android.content.Intent;
 import android.graphics.Color;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,13 +30,19 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import static android.provider.AlarmClock.EXTRA_MESSAGE;
 
-public class MainActivity extends AppCompatActivity {
+
+public class MainActivity extends AppCompatActivity{
 
     ArrayAdapter<String> adaptador;
     ListView lista;
-    Toolbar myToolbar;
+
     Toast toast;
+
+    DrawerLayout mDrawerLayout;
+    Toolbar myToolbar;
+    NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
         adaptador = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
 
         setMyToolbar();
+        setDrawerLayout();
 
 
 
@@ -93,6 +108,87 @@ public class MainActivity extends AppCompatActivity {
         myToolbar.setTitleTextColor(getResources().getColor(R.color.white));
 
         setSupportActionBar(myToolbar);
+        ActionBar actionbar = getSupportActionBar();
+        actionbar.setDisplayHomeAsUpEnabled(true);
+        actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
+
+    }
+
+    private void setDrawerLayout(){
+        mDrawerLayout = findViewById(R.id.drawer_layout);
+
+        navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(
+                new NavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(MenuItem item) {
+                        // set item as selected to persist highlight
+                        item.setChecked(true);
+                        //close navigation drawer
+                        mDrawerLayout.closeDrawer(GravityCompat.START);
+
+                        // Add code here to update the UI based on the item selected
+                        // For example, swap UI fragments here
+
+                        System.out.println("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
+                        switch (item.getItemId()) {
+                            case R.id.drw_science_technology:
+                                System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+                                toast = Toast.makeText(getApplicationContext(), "Science and technology", Toast.LENGTH_SHORT);
+                                toast.show();
+                                break;
+                            case R.id.drw_maps:
+                                toast = Toast.makeText(getApplicationContext(), "Maps", Toast.LENGTH_SHORT);
+                                toast.show();
+                                break;
+                            case R.id.drw_customers:
+                                toast = Toast.makeText(getApplicationContext(), "Customers", Toast.LENGTH_SHORT);
+                                toast.show();
+                                break;
+                            case R.id.drw_reports:
+                                toast = Toast.makeText(getApplicationContext(), "Reports", Toast.LENGTH_SHORT);
+                                toast.show();
+                                break;
+                            case R.id.drw_integration:
+                                toast = Toast.makeText(getApplicationContext(), "Integration", Toast.LENGTH_SHORT);
+                                toast.show();
+                                break;
+                        }
+
+                        // set item as selected to persist highlight
+                        item.setChecked(true);
+                        // close drawer when item is tapped
+                        mDrawerLayout.closeDrawers();
+
+
+                        return true;
+                    }
+                });
+
+        mDrawerLayout.addDrawerListener(
+                new DrawerLayout.DrawerListener() {
+                    @Override
+                    public void onDrawerSlide(View drawerView, float slideOffset) {
+                        // Respond when the drawer's position changes
+                    }
+
+                    @Override
+                    public void onDrawerOpened(View drawerView) {
+                        // Respond when the drawer is opened
+                    }
+
+                    @Override
+                    public void onDrawerClosed(View drawerView) {
+                        // Respond when the drawer is closed
+                    }
+
+                    @Override
+                    public void onDrawerStateChanged(int newState) {
+                        // Respond when the drawer motion state changes
+                    }
+                }
+        );
+
 
     }
 
@@ -114,9 +210,19 @@ public class MainActivity extends AppCompatActivity {
                 return true;
 
             case R.id.action_dashboard:
-                toast = Toast.makeText(getApplicationContext(), "Dasboard", Toast.LENGTH_SHORT);
-                toast.show();
+                Intent intent = new Intent(this, secondActivity.class);
+                /*EditText editText = (EditText) findViewById(R.id.editText);
+                String message = editText.getText().toString();
+                intent.putExtra(EXTRA_MESSAGE, message);*/
+                startActivity(intent);
                 return true;
+
+            case android.R.id.home:
+                mDrawerLayout.openDrawer(GravityCompat.START);
+                return true;
+
+
+
 
             default:
                 // If we got here, the user's action was not recognized.
