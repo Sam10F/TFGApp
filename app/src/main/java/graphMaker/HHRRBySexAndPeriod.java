@@ -1,15 +1,8 @@
 package graphMaker;
 
-import android.content.Context;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.LegendRenderer;
 import com.jjoe64.graphview.series.BarGraphSeries;
@@ -35,34 +28,8 @@ public class HHRRBySexAndPeriod extends AppCompatActivity {
         this.jsonArray = jsonArray;
     }
 
-    public HHRRBySexAndPeriod(Context context){
-        RequestQueue queue = Volley.newRequestQueue(this);
-        String url ="http://192.168.0.26:8082/v1/data.json";
 
-        // Request a string response from the provided URL.
-
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try{
-                            jsonArray = new JSONArray(response);
-
-                        }catch (Exception e){
-                            e.printStackTrace();
-                        }
-
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {}
-        });
-        // Add the request to the RequestQueue.
-        queue.add(stringRequest);
-        queue.start();
-    }
-
-    public void createLineGraph(GraphView lineGraph) throws JSONException {
+    public void createLineGraph(GraphView lineGraph, String title, boolean extras) throws JSONException {
 
         int s = 0;
         while(jsonArray==null){
@@ -88,7 +55,7 @@ public class HHRRBySexAndPeriod extends AppCompatActivity {
         }
 
 
-        lineGraph.setTitle("HHRR by sex and period (Line Graph)");
+        lineGraph.setTitle(title);
 
         LineGraphSeries<DataPoint> seriesWS = new LineGraphSeries<DataPoint>(new DataPoint[]{
                 new DataPoint(2012, womanSpain.get(4)),
@@ -135,11 +102,14 @@ public class HHRRBySexAndPeriod extends AppCompatActivity {
         lineGraph.addSeries(seriesWE);
         lineGraph.addSeries(seriesWS);
 
-        lineGraph.getLegendRenderer().setVisible(true);
-        lineGraph.getLegendRenderer().setAlign(LegendRenderer.LegendAlign.TOP);
+        if(extras){
+            lineGraph.getLegendRenderer().setVisible(true);
+            lineGraph.getLegendRenderer().setAlign(LegendRenderer.LegendAlign.TOP);
+            lineGraph.getViewport().setScalableY(true);
+        }
     }
 
-    public void createBarGraph(GraphView graph) throws JSONException{
+    public void createBarGraph(GraphView graph, String title, boolean extras) throws JSONException{
         List<Double> womanSpain = new ArrayList<>();
         List<Double> womanEU = new ArrayList<>();
         List<Double> manSpain = new ArrayList<>();
@@ -159,7 +129,7 @@ public class HHRRBySexAndPeriod extends AppCompatActivity {
         }
 
 
-        graph.setTitle("HHRR by sex and period (Bar Graph)");
+        graph.setTitle(title);
 
         BarGraphSeries<DataPoint> seriesWS = new BarGraphSeries<DataPoint>(new DataPoint[]{
                 new DataPoint(2012, womanSpain.get(4)),
@@ -206,10 +176,16 @@ public class HHRRBySexAndPeriod extends AppCompatActivity {
         graph.addSeries(seriesWE);
         graph.addSeries(seriesWS);
 
+        if(extras){
+            graph.getLegendRenderer().setVisible(true);
+            graph.getLegendRenderer().setAlign(LegendRenderer.LegendAlign.TOP);
+            graph.getViewport().setScalableY(true);
+        }
+
     }
 
 
-    public void createPointGraph(GraphView graph) throws JSONException{
+    public void createPointGraph(GraphView graph, String title, boolean extras) throws JSONException{
         List<Double> womanSpain = new ArrayList<>();
         List<Double> womanEU = new ArrayList<>();
         List<Double> manSpain = new ArrayList<>();
@@ -228,7 +204,7 @@ public class HHRRBySexAndPeriod extends AppCompatActivity {
             }
         }
 
-        graph.setTitle("HHRR by sex and period (Point Graph)");
+        graph.setTitle(title);
 
         PointsGraphSeries<DataPoint> seriesWS = new PointsGraphSeries<DataPoint>(new DataPoint[]{
                 new DataPoint(2012, womanSpain.get(4)),
@@ -277,6 +253,12 @@ public class HHRRBySexAndPeriod extends AppCompatActivity {
         graph.addSeries(seriesMS);
         graph.addSeries(seriesWE);
         graph.addSeries(seriesWS);
+
+        if(extras){
+            graph.getLegendRenderer().setVisible(true);
+            graph.getLegendRenderer().setAlign(LegendRenderer.LegendAlign.TOP);
+            graph.getViewport().setScalableY(true);
+        }
 
     }
 }

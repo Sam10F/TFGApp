@@ -20,4 +20,61 @@
         android:layout_width="match_parent"
         android:layout_height="200dip" />
 
+    <LinearLayout android:id="@+id/splitLine"
+        android:layout_marginTop="30dp"
+        android:layout_below="@id/generalChart"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="@color/black"
+        android:orientation="horizontal"
+        />
+
+    <TableLayout android:id="@+id/detailTable"
+        android:layout_below="@+id/splitLine"
+        android:layout_marginTop="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:stretchColumns="*">
+        <TableRow>
+            <TextView
+                android:textStyle="bold"
+                android:gravity="center"
+                android:text="Years"
+                android:padding="3dip"
+                android:tag="Years/int"
+                android:clickable="true"
+                android:focusable="true"
+                android:onClick="orderBy"/>
+            <TextView
+                android:textStyle="bold"
+                android:text="Sex"
+                android:gravity="center"
+                android:padding="3dip"
+                android:tag="Sex/string"
+                android:clickable="true"
+                android:focusable="true"
+                android:onClick="orderBy"/>
+            <TextView
+                android:textStyle="bold"
+                android:gravity="center"
+                android:text="Europe"
+                android:padding="3dip"
+                android:tag="EU-28/double"
+                android:clickable="true"
+                android:focusable="true"
+                android:onClick="orderBy"/>
+
+            <TextView
+                android:textStyle="bold"
+                android:gravity="center"
+                android:padding="3dip"
+                android:text="Spain"
+                android:tag="Spain/double"
+                android:clickable="true"
+                android:focusable="true"
+                android:onClick="orderBy"/>
+        </TableRow>
+
+    </TableLayout>
+
 </RelativeLayout>

@@ -1,10 +1,12 @@
 package com.example.samuel.tfgapp;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -53,11 +55,23 @@ public class MainActivity extends AppCompatActivity{
     HHRRBySexAndPeriod graphMaker;
 
     JSONArray jsonArray;
+    SwipeRefreshLayout mSwipeRefreshLayout;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mSwipeRefreshLayout = findViewById(R.id.swiperefresh);
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                Intent intent = getIntent();
+                finish();
+                startActivity(intent);
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
+        });
 
 
 
@@ -85,9 +99,9 @@ public class MainActivity extends AppCompatActivity{
                             pointGraph  = findViewById(R.id.pointChart);
 
                             try{
-                                graphMaker.createLineGraph(lineGraph);
-                                graphMaker.createBarGraph(barGraph);
-                                graphMaker.createPointGraph(pointGraph);
+                                graphMaker.createLineGraph(lineGraph, "Line Graph", false);
+                                graphMaker.createBarGraph(barGraph, "Bar Graph", false);
+                                graphMaker.createPointGraph(pointGraph, "Point Graph", false);
                             }catch (Exception e){e.printStackTrace();}
 
                         }catch (Exception e){
@@ -243,10 +257,23 @@ public class MainActivity extends AppCompatActivity{
 
     public void seeDetail(View mview){
         String typeOfGraph = (String) mview.getTag();
+        String title = "";
+
+        switch (typeOfGraph){
+            case "lineChart":
+                title = "Line graph in Detail";
+                break;
+            case "barChart":
+                title = "Bar graph in Detail";
+                break;
+            case "pointChart":
+                title = "Point graph in Detail";
+                break;
+        }
 
         Intent intent = new Intent(this, secondActivity.class);
         intent.putExtra("typeOfGraph", typeOfGraph);
-        //intent.putExtra()
+        intent.putExtra("title", title);
 
         startActivity(intent);
     }

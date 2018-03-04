@@ -6,65 +6,66 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
 
-    <ScrollView
+    <android.support.v4.widget.SwipeRefreshLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/swiperefresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <!-- Layout to contain contents of main body of screen (drawer will slide over this) -->
-        <RelativeLayout
-            android:id="@+id/content_frame"
+
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-
-
-
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
+            android:layout_height="match_parent">
+            <!-- Layout to contain contents of main body of screen (drawer will slide over this) -->
+            <RelativeLayout
+                android:id="@+id/content_frame"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="@color/mainAppColor"
-                android:elevation="4dp"
-                android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
-
-            <com.jjoe64.graphview.GraphView android:id="@+id/lineChart"
-                android:tag="lineChart"
-                android:layout_marginTop="60dp"
-                android:layout_width="match_parent"
-                android:layout_height="200dip"
-                android:clickable="true"
-                android:focusable="true"
-                android:onClick="seeDetail"/>
-
-            <!--<TextView android:id="@+id/lineChart_detail"
-                android:text="@string/textview_detail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/lineChart"
-                android:focusable="true"
-                android:clickable="true"
-                android:layout_alignStart="@+id/lineChart"
-                android:layout_marginStart="35dp"
-                android:layout_marginTop="10dp"
-                android:textColor="#0000FF"
-                android:textSize="15sp"
-                android:onClick="seeDetail"/>-->
-
-            <com.jjoe64.graphview.GraphView android:id="@+id/barChart"
-                android:layout_below="@+id/lineChart"
-                android:layout_marginTop="60dp"
-                android:layout_width="match_parent"
-                android:layout_height="200dip" />
-
-            <com.jjoe64.graphview.GraphView android:id="@+id/pointChart"
-                android:layout_below="@+id/barChart"
-                android:layout_marginTop="60dp"
-                android:layout_width="match_parent"
-                android:layout_height="200dip" />
+                android:layout_height="wrap_content" >
 
 
-        </RelativeLayout>
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="@color/mainAppColor"
+                    android:elevation="4dp"
+                    android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
-    </ScrollView>
+                <com.jjoe64.graphview.GraphView android:id="@+id/lineChart"
+                    android:title="ESE AHI"
+                    android:tag="lineChart"
+                    android:layout_marginTop="70dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dip"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:onClick="seeDetail"/>
+
+
+                <com.jjoe64.graphview.GraphView android:id="@+id/barChart"
+                    android:tag="barChart"
+                    android:layout_below="@+id/lineChart"
+                    android:layout_marginTop="60dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dip"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:onClick="seeDetail"/>
+
+                <com.jjoe64.graphview.GraphView android:id="@+id/pointChart"
+                    android:tag="pointChart"
+                    android:layout_below="@+id/barChart"
+                    android:layout_marginTop="60dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dip"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:onClick="seeDetail"/>
+
+
+            </RelativeLayout>
+        </ScrollView>
+    </android.support.v4.widget.SwipeRefreshLayout>
 
     <!-- Container for contents of drawer - use NavigationView to make configuration easier -->
     <android.support.design.widget.NavigationView
