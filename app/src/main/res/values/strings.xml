@@ -16,4 +16,6 @@
     <string name="drw_reports">Reports</string>
     <string name="drw_integration">Integration</string>
     <!--  -->
+
+    <string name="textview_detail">See in detail.</string>
 </resources>

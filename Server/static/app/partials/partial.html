@@ -1,0 +1,33 @@
+<h1>USO DE INTERNET DE LA SOCIEDAD ESPAÑOLA</h1>
+<p>ESE: {{fnSexo}}</p>
+<!-- <select name="sex" ng-model="sex">
+	<option selected value="" disabled>Sexo</option>
+	<option selected value="Hombres">Hombres</option>
+	<option value="Mujeres">Mujeres</option>
+	<option value="Brecha de género (hombres - mujeres)">Brecha de género</option>
+</select> -->
+<select name="sex" ng-model="sex" ng-options="x for x in fnSexo">
+	<option value="" disabled selected="">Sexo</option>
+</select>
+
+<select name="range" ng-model="range" ng-options="r for r in fnRangos">
+   <option selected value="" disabled>Rango</option>
+</select>
+
+<input type="text" placeholder="percentaje" ng-model="percentaje">
+
+<p>Inserta un nuevo valor:</p>
+<select name="sex" ng-model="new_data.SEXO" ng-options="x for x in fnSexo">
+	<option value="" disabled selected="">Sexo</option>
+</select>
+<input type="text" placeholder="insert range" ng-model="new_data.RANGOS">
+<input type="text" placeholder="insert year 2016" ng-model="new_data.a2016">
+<button ng-click="addData(new_data)" type="button">Save Data</button>
+
+
+<div> 
+		<h2 ng-repeat="x in fn | filter : sex : true | limitTo : '1' : begin">{{x.SEXO}}</h2>
+		<p ng-repeat="x in fn | filter : range | filter : percentaje | filter : sex : true  | orderBy : ['SEXO', 'RANGOS']" >
+			<span style="font-weight: bold">{{x.RANGOS + ": "}}</span> {{x.a2016 + "%" + " (" + x.SEXO + ") "}}
+		</p>
+</div>
