@@ -8,14 +8,17 @@
   },
   "author": "Samuel Diez",
   "license": "ISC",
-
-	"dependencies": {
-        "async": "1.x",
-        "body-parser": "1.x",
-        "express": "4.x",
-        "mongodb": "2.x",
-        "morgan": "1.x",
-        "net":    "1.x"
-    }
-
+  "dependencies": {
+    "async": "1.x",
+    "body-parser": "1.x",
+    "express": "4.x",
+    "mongodb": "2.x",
+    "morgan": "1.x",
+    "net": "1.x",
+    "bcrypt": "0.8.x",
+    "jsonwebtoken": "8.2.0",
+    "jwt-simple": "0.5.1",
+    "email-validator": "1.0.0",
+    "password-validator": "4.0.0"
+  }
 }

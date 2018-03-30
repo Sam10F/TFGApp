@@ -11,7 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/MainTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".LogInActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,14 +19,22 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".MainActivity"
+            android:parentActivityName=".LogInActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.samuel.tfgapp.LogInActivity" />
+        </activity>
+        <activity
             android:name=".secondActivity"
             android:label="@string/activity_second"
-            android:parentActivityName="com.example.samuel.tfgapp.MainActivity" >
+            android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.samuel.tfgapp.MainActivity" />
-
         </activity>
+        <activity android:name=".SignUp" />
+        <activity android:name=".usrOptionsActivity"></activity>
     </application>
 
 </manifest>

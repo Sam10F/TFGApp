@@ -44,11 +44,15 @@ public class HHRRBySexAndPeriod extends AppCompatActivity {
 
 
         for(int i = 0;i < jsonArray.length();i++){
-            if(jsonArray.getJSONObject(i).getString("Sex").equals("woman")){
+
+            if(jsonArray.getJSONObject(i).has("Sex")
+                    && jsonArray.getJSONObject(i).getString("Sex").equals("woman")){
+
                 womanSpain.add(jsonArray.getJSONObject(i).getDouble("Spain"));
                 womanEU.add(jsonArray.getJSONObject(i).getDouble("EU-28"));
             }
-            if(jsonArray.getJSONObject(i).getString("Sex").equals("man")){
+            if(jsonArray.getJSONObject(i).has("Sex")
+                    && jsonArray.getJSONObject(i).getString("Sex").equals("man")){
                 manSpain.add(jsonArray.getJSONObject(i).getDouble("Spain"));
                 manEU.add(jsonArray.getJSONObject(i).getDouble("EU-28"));
             }
@@ -118,11 +122,15 @@ public class HHRRBySexAndPeriod extends AppCompatActivity {
 
 
         for(int i = 0;i < jsonArray.length();i++){
-            if(jsonArray.getJSONObject(i).getString("Sex").equals("woman")){
+            if(jsonArray.getJSONObject(i).has("Sex")
+                && jsonArray.getJSONObject(i).getString("Sex").equals("woman")){
+
                 womanSpain.add(jsonArray.getJSONObject(i).getDouble("Spain"));
                 womanEU.add(jsonArray.getJSONObject(i).getDouble("EU-28"));
             }
-            if(jsonArray.getJSONObject(i).getString("Sex").equals("man")){
+            if(jsonArray.getJSONObject(i).has("Sex")
+                    && jsonArray.getJSONObject(i).getString("Sex").equals("man")){
+
                 manSpain.add(jsonArray.getJSONObject(i).getDouble("Spain"));
                 manEU.add(jsonArray.getJSONObject(i).getDouble("EU-28"));
             }
@@ -194,11 +202,15 @@ public class HHRRBySexAndPeriod extends AppCompatActivity {
 
 
         for(int i = 0;i < jsonArray.length();i++){
-            if(jsonArray.getJSONObject(i).getString("Sex").equals("woman")){
+            if(jsonArray.getJSONObject(i).has("Sex")
+                    && jsonArray.getJSONObject(i).getString("Sex").equals("woman")){
+
                 womanSpain.add(jsonArray.getJSONObject(i).getDouble("Spain"));
                 womanEU.add(jsonArray.getJSONObject(i).getDouble("EU-28"));
             }
-            if(jsonArray.getJSONObject(i).getString("Sex").equals("man")){
+            if(jsonArray.getJSONObject(i).has("Sex")
+                    && jsonArray.getJSONObject(i).getString("Sex").equals("man")){
+
                 manSpain.add(jsonArray.getJSONObject(i).getDouble("Spain"));
                 manEU.add(jsonArray.getJSONObject(i).getDouble("EU-28"));
             }

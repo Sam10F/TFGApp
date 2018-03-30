@@ -1,8 +1,6 @@
 package com.example.samuel.tfgapp;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Color;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -15,7 +13,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 
 import android.widget.Toast;
 
@@ -26,23 +23,12 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.jjoe64.graphview.GraphView;
-import com.jjoe64.graphview.LegendRenderer;
-import com.jjoe64.graphview.series.BarGraphSeries;
-import com.jjoe64.graphview.series.DataPoint;
-import com.jjoe64.graphview.series.LineGraphSeries;
-import com.jjoe64.graphview.series.PointsGraphSeries;
 
 import org.json.JSONArray;
-import org.json.JSONException;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import graphMaker.HHRRBySexAndPeriod;
 
 public class MainActivity extends AppCompatActivity{
-
-    ArrayAdapter<String> adaptador;
 
     Toast toast;
 
@@ -81,14 +67,14 @@ public class MainActivity extends AppCompatActivity{
 
         // Instantiate the RequestQueue.
         RequestQueue queue = Volley.newRequestQueue(this);
-        String url ="http://192.168.1.36:8082/v1/data.json";
+        String url ="http://192.168.0.25:8082/v1/data.json";
 
         // Request a string response from the provided URL.
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
                     @Override
-                    public void onResponse(String  response) {
+                    public void onResponse(String response) {
                         // Display the first 500 characters of the response string.
                         try{
                             jsonArray = new JSONArray(response);
@@ -115,7 +101,9 @@ public class MainActivity extends AppCompatActivity{
                     }
                 }, new Response.ErrorListener() {
             @Override
-            public void onErrorResponse(VolleyError error) {}
+            public void onErrorResponse(VolleyError error) {
+                System.out.println(error);
+            }
         });
         // Add the request to the RequestQueue.
         queue.add(stringRequest);
@@ -227,13 +215,13 @@ public class MainActivity extends AppCompatActivity{
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_logIn:
-                toast = Toast.makeText(getApplicationContext(), "LogIn", Toast.LENGTH_SHORT);
-                toast.show();
+            case R.id.action_usrOptions:
+                Intent intent = new Intent(this, usrOptionsActivity.class);
+                startActivity(intent);
                 return true;
 
             case R.id.action_dashboard:
-                Intent intent = new Intent(this, secondActivity.class);
+                intent = new Intent(this, secondActivity.class);
                 /*EditText editText = (EditText) findViewById(R.id.editText);
                 String message = editText.getText().toString();
                 intent.putExtra(EXTRA_MESSAGE, message);*/

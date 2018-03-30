@@ -4,8 +4,8 @@
 
     <item
 
-        android:id="@+id/action_logIn"
-        android:title="@string/action_logIn"
+        android:id="@+id/action_usrOptions"
+        android:title="@string/action_usrOptions"
         app:showAsAction="never"/>
 
     <item

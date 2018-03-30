@@ -21,7 +21,8 @@ exports.init_db = function (callback) {
         console.log("Current database", db.databaseName);
 
         // Got the connection, now get the recipes collection. It's easy.
-        exports.cp1 = _db.collection("HHRRBySexPeriod");
+        exports.cp1         = _db.collection("SciTech/HHRRBySexPeriod");
+        exports.dataLogIn   = _db.collection("Users");
         callback(null);
     });
 
