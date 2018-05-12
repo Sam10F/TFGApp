@@ -26,6 +26,7 @@ import com.jjoe64.graphview.GraphView;
 
 import org.json.JSONArray;
 
+import Session.Session;
 import graphMaker.HHRRBySexAndPeriod;
 
 public class MainActivity extends AppCompatActivity{
@@ -88,6 +89,9 @@ public class MainActivity extends AppCompatActivity{
                                 graphMaker.createLineGraph(lineGraph, "Line Graph", false);
                                 graphMaker.createBarGraph(barGraph, "Bar Graph", false);
                                 graphMaker.createPointGraph(pointGraph, "Point Graph", false);
+
+
+
                             }catch (Exception e){e.printStackTrace();}
 
                         }catch (Exception e){

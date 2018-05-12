@@ -15,6 +15,17 @@ exports.logIn = function(dataLogIn, callback){
 	data_data.logIn(dataLogIn, callback);
 }
 
+exports.edit = function(dataEdit, callback){
+	var schema = createPassSchema();
+	if(!schema.validate(dataEdit[2])){
+		callback("The password does not fit the requirements");
+	}else if(!mailValidator.validate(dataEdit[0])){
+		callback("The email format is not valid");
+	}else{
+		data_data.edit(dataEdit, callback);
+	}
+}
+
 exports.signUp = function(dataSignUp, callback){
 
 	var schema = createPassSchema();
@@ -35,8 +46,7 @@ function createPassSchema(){
 	// Add properties to it 
 	schema
 	.is().min(4)                                    // Minimum length 4 
-	.is().max(20)                                  // Maximum length 100 
-	.has().uppercase()                              // Must have uppercase letters 
+	.is().max(200)                                  // Maximum length 100 
 	.has().lowercase()                              // Must have lowercase letters 
 	.has().digits()                                 // Must have digits 
 	.has().not().spaces()                           // Should not have spaces 

@@ -47,6 +47,25 @@ app.post("/v1/login.json", function(req, res){
             return send_error_resp(res, err);
         } else {
             console.log("Login Correcto...");
+            console.log("EJE: " + recipe[1]);
+            return send_success_resp(res, recipe);
+        }
+    });
+
+});
+
+app.post("/v1/edit.json", function(req, res){
+
+    console.log("Editing...");
+
+    var str = JSON.parse(Object.keys(req.body)[0]);
+    var decoded = jwt.decode(str["signupToken"], "secret");
+    var dataEdit = [decoded["mail"], decoded["usr"], decoded["pswd"], decoded["oldUsrName"]];
+
+    data_handler.edit(dataEdit, function(err, recipe) {
+        if (err) {
+            return send_error_resp(res, err);
+        } else {
             return send_success_resp(res, recipe);
         }
     });
@@ -63,7 +82,6 @@ app.post("/v1/signup.json", function(req, res){
 
     data_handler.signUp(dataSignUp, function(err, recipe) {
         if (err) {
-            console.log("HOLI");
             return send_error_resp(res, err);
         } else {
             return send_success_resp(res, recipe);

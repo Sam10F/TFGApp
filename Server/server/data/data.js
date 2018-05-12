@@ -42,6 +42,27 @@ exports.getcp1 = function(){
     });
 }
 
+exports.edit = function(dataEdit, callback){
+    var pass = bcrypt.hashSync(dataEdit[2], 10);
+
+    console.log(dataEdit[3]);
+
+    var myquery = { username: dataEdit[3] };
+    var newvalues = { $set: { email: dataEdit[0], username: dataEdit[1], password: pass } };
+
+    db.dataLogIn.update(myquery, newvalues, function(err, res){
+        if(err == null){
+            console.log("1 document inserted");
+            callback(null, "User profile edited");
+        }else if(err.message.includes("technological-society.Users.$username_1")){
+            callback("User name already in use");
+        }else if(err.message.includes("technological-society.Users.$email_1")){
+            callback("Mail already in use");
+        }
+    });
+    
+}
+
 exports.signUp = function(dataSignUp, callback){
 
     var result = [];
@@ -69,18 +90,19 @@ exports.signUp = function(dataSignUp, callback){
 
 exports.logIn = function(dataLogIn, callback){
     var success = false;
-
+    var usrData;
 
 
     var cursor = db.dataLogIn.find({ "username": dataLogIn[0] }).limit(1);
     cursor.on("data", function (recipe) {
-        //console.log(dataLogIn);
         //console.log(recipe.password);
         success = bcrypt.compareSync(dataLogIn[1], recipe.password);
-
+        var usr = [recipe.username, recipe.email, recipe.password]
+        usrData = usr;
     });
     cursor.once("end", function () {
-        success ? callback(null, dataLogIn[0]) : callback("false");
+        console.log("h: " + usrData[1]);
+        success ? callback(null, usrData) : callback("false");
     });
 }
 

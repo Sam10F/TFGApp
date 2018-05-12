@@ -4,7 +4,7 @@
 
     <string name="setions_home">Home</string>
 
-    <string name="action_usrOptions">User options</string>
+    <string name="action_usrOptions">Edit profile</string>
     <string name="action_logOut">Log out</string>
     <string name="action_dashboard">Dashboard</string>
 

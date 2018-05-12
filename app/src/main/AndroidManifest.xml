@@ -34,7 +34,13 @@
                 android:value="com.example.samuel.tfgapp.MainActivity" />
         </activity>
         <activity android:name=".SignUp" />
-        <activity android:name=".usrOptionsActivity"></activity>
+
+        <activity android:name=".usrOptionsActivity"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value="com.example.samuel.tfgapp.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

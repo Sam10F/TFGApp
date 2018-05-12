@@ -23,6 +23,7 @@ import org.mindrot.jbcrypt.BCrypt;
 
 import java.io.UnsupportedEncodingException;
 
+import Session.Session;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
@@ -48,14 +49,6 @@ public class SignUp extends AppCompatActivity {
         pswd = findViewById(R.id.pswrdd);
         mail = findViewById(R.id.mail);
         repeatpswd = findViewById(R.id.mobphone);
-        Typeface custom_font = Typeface.createFromAsset(getAssets(), "fonts/LatoLight.ttf");
-        Typeface custom_font1 = Typeface.createFromAsset(getAssets(), "fonts/LatoRegular.ttf");
-        repeatpswd.setTypeface(custom_font);
-        sup.setTypeface(custom_font1);
-        pswd.setTypeface(custom_font);
-        lin.setTypeface(custom_font);
-        usrusr.setTypeface(custom_font);
-        mail.setTypeface(custom_font);
         lin.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -107,6 +100,14 @@ public class SignUp extends AppCompatActivity {
                             // response
                             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                             startActivity(intent);
+
+                            String finalString = response.replace("[", "");
+                            finalString = finalString.replace("]", "");
+                            finalString = finalString.replace("\"", "");
+
+                            Session.setUserName(finalString.split(",")[0]);
+                            Session.setEmail(finalString.split(",")[1]);
+
                             toast = Toast.makeText(getApplicationContext(), response, Toast.LENGTH_SHORT);
                             toast.show();
 

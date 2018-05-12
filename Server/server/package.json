@@ -15,7 +15,7 @@
     "mongodb": "2.x",
     "morgan": "1.x",
     "net": "1.x",
-    "bcrypt": "0.8.x",
+    "bcrypt": "0.8",
     "jsonwebtoken": "8.2.0",
     "jwt-simple": "0.5.1",
     "email-validator": "1.0.0",

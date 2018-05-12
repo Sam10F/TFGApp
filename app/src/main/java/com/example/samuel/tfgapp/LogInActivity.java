@@ -27,6 +27,7 @@ import org.mindrot.jbcrypt.BCrypt;
 import java.io.UnsupportedEncodingException;
 import java.util.Date;
 
+import Session.Session;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
@@ -55,12 +56,6 @@ public class LogInActivity extends AppCompatActivity {
         usrusr = findViewById(R.id.usrusr);
         pswd = findViewById(R.id.pswrdd);
         sup = findViewById(R.id.sup);
-        Typeface custom_font = Typeface.createFromAsset(getAssets(), "fonts/LatoLight.ttf");
-        Typeface custom_font1 = Typeface.createFromAsset(getAssets(), "fonts/LatoRegular.ttf");
-        lin.setTypeface(custom_font1);
-        sup.setTypeface(custom_font);
-        usrusr.setTypeface(custom_font);
-        pswd.setTypeface(custom_font);
         sup.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -117,7 +112,15 @@ public class LogInActivity extends AppCompatActivity {
                         // response
                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                         startActivity(intent);
-                        toast = Toast.makeText(getApplicationContext(), "Bienvenido " + response, Toast.LENGTH_SHORT);
+                        String finalString = response.replace("[", "");
+                        finalString = finalString.replace("]", "");
+                        finalString = finalString.replace("\"", "");
+
+                        Session.setUserName(finalString.split(",")[0]);
+                        Session.setEmail(finalString.split(",")[1]);
+
+
+                        toast = Toast.makeText(getApplicationContext(), "Bienvenido " + Session.getUserName(), Toast.LENGTH_SHORT);
                         toast.show();
                     }
                 },

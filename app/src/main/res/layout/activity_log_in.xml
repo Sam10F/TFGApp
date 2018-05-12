@@ -35,13 +35,13 @@
                     android:letterSpacing="0.1"
                     android:textColor="@color/black"
 
-                    android:textColorHint="#000000"
+                    android:textColorHint="@color/mainAppColor"
                     android:textSize="16sp" />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="#4a5a71" />
+                android:background="@color/mainAppColor" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -63,13 +63,13 @@
                     android:inputType="textPassword"
                     android:letterSpacing="0.1"
                     android:textColor="@color/black"
-                    android:textColorHint="#000000"
+                    android:textColorHint="@color/mainAppColor"
                     android:textSize="16dp" />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="#4a5a71" />
+                android:background="@color/mainAppColor" />
         </LinearLayout>
     </LinearLayout>
     <LinearLayout
@@ -84,7 +84,7 @@
             android:id="@+id/lin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#000000"
+            android:background="@color/mainAppColor"
             android:text="Login"
             android:textColor="#FFFFFF"
             android:textStyle="bold"
@@ -111,7 +111,7 @@
         <ImageView
             android:layout_width="150dp"
             android:layout_height="150dp"
-            android:src="@drawable/ibytes"
+            android:src="@drawable/main_icon"
             android:onClick="goDemo"/>
     </LinearLayout>
 </RelativeLayout>
