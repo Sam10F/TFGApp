@@ -6,16 +6,36 @@
 
     <string name="action_usrOptions">Edit profile</string>
     <string name="action_logOut">Log out</string>
-    <string name="action_dashboard">Dashboard</string>
+    <string name="action_dashboard">Tutorial</string>
 
     <!-- Drawer View -->
-    <string name="drw_tittle">My drawer</string>
-    <string name="drw_science_technology">Science and Technology</string>
-    <string name="drw_maps">Maps</string>
+    <string name="drw_tittle">List of graphs</string>
+    <string name="drw_science_technology">Active population 15-74 Years old</string>
+    <string name="drw_maps">Female research by sector and period</string>
     <string name="drw_customers">Customers</string>
     <string name="drw_reports">Reports</string>
     <string name="drw_integration">Integration</string>
     <!--  -->
 
     <string name="textview_detail">See in detail.</string>
+    <string name="title_activity_female_research">FemaleResearch</string>
+    <string name="title_activity_frdetail">FRDetail</string>
+    <string name="title_activity_first_page">FirstPage</string>
+
+    <string name="title_activity_welcome">Home Screen</string>
+    <string name="next">NEXT</string>
+    <string name="skip">SKIP</string>
+    <string name="got_it">GOT IT</string>
+    <string name="welcome">Intro slider example by <a class="vglnk" href="http://Tutorialwing.com" rel="nofollow"><span>Tutorialwing</span><span>.</span><span>com</span></a></string>
+    <string name="slide1_desc">By clicking in the options toolbar buttom...</string>
+    <string name="slide1_title">Before start, as user you can edit your profile </string>
+    <string name="slide2_desc">Then select one of our data collection...</string>
+    <string name="slide2_title">To start, open the Drawer by clicking on its button on the toolbar</string>
+    <string name="slide3_desc">Click in the one that you are interested in...</string>
+    <string name="slide3_title">Once in one data collection you will see three types of graphs</string>
+    <string name="slide4_desc">Click on one of the tittle of the table below to sort the information</string>
+    <string name="slide4_title">Once you have clicked on one type of graph, you will see a detail view </string>
+
+    <string name="get_started">Get Started</string>
+    <string name="check_it_out">Check It Out</string>
 </resources>

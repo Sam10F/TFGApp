@@ -20,27 +20,49 @@
         </activity>
         <activity
             android:name=".MainActivity"
+            android:parentActivityName=".FirstPage">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.samuel.tfgapp.FirstPage" />
+        </activity>
+        <activity
+            android:name=".secondActivity"
+            android:label="@string/activity_second"
+            android:parentActivityName=".FirstPage">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.samuel.tfgapp.FirstPage" />
+        </activity>
+        <activity android:name=".SignUp" />
+        <activity
+            android:name=".usrOptionsActivity"
+            android:parentActivityName=".FirstPage">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.samuel.tfgapp.FirstPage" />
+        </activity>
+        <activity
+            android:name=".FemaleResearch"
+            android:parentActivityName=".FirstPage">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.samuel.tfgapp.FirstPage" />
+        </activity>
+        <activity
+            android:name=".FRDetail"
+            android:parentActivityName=".FirstPage">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.samuel.tfgapp.FirstPage" />
+        </activity>
+        <activity
+            android:name=".FirstPage"
             android:parentActivityName=".LogInActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.samuel.tfgapp.LogInActivity" />
         </activity>
-        <activity
-            android:name=".secondActivity"
-            android:label="@string/activity_second"
-            android:parentActivityName=".MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.samuel.tfgapp.MainActivity" />
-        </activity>
-        <activity android:name=".SignUp" />
-
-        <activity android:name=".usrOptionsActivity"
-            android:parentActivityName=".MainActivity">
-            <meta-data
-            android:name="android.support.PARENT_ACTIVITY"
-            android:value="com.example.samuel.tfgapp.MainActivity" />
-        </activity>
+        <activity android:name=".WelcomeActivity"></activity>
     </application>
 
 </manifest>

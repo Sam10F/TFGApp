@@ -1,20 +1,20 @@
 package com.example.samuel.tfgapp;
 
-import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -27,12 +27,15 @@ import com.jjoe64.graphview.GraphView;
 
 import org.json.JSONArray;
 
-import Session.Session;
 import graphMaker.HHRRBySexAndPeriod;
 
-public class MainActivity extends AppCompatActivity{
+public class FemaleResearch extends AppCompatActivity {
+
+    SwipeRefreshLayout mSwipeRefreshLayout;
 
     Toast toast;
+
+    Intent intent;
 
     DrawerLayout mDrawerLayout;
     Toolbar myToolbar;
@@ -40,17 +43,15 @@ public class MainActivity extends AppCompatActivity{
 
     GraphView lineGraph, barGraph, pointGraph;
 
-    HHRRBySexAndPeriod graphMaker;
-
+    graphMaker.FemaleResearch femaleResearch;
     JSONArray jsonArray;
-    SwipeRefreshLayout mSwipeRefreshLayout;
-
-    Intent intent;
 
     @Override
-    protected void onCreate(final Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_female_research);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         mSwipeRefreshLayout = findViewById(R.id.swiperefresh);
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -68,10 +69,9 @@ public class MainActivity extends AppCompatActivity{
         setMyToolbar();
         setDrawerLayout();
 
-
         // Instantiate the RequestQueue.
         RequestQueue queue = Volley.newRequestQueue(this);
-        String url ="http://192.168.0.25:8082/v1/data.json";
+        String url ="http://192.168.0.25:8082/v1/female_research.json";
 
         // Request a string response from the provided URL.
 
@@ -82,16 +82,16 @@ public class MainActivity extends AppCompatActivity{
                         // Display the first 500 characters of the response string.
                         try{
                             jsonArray = new JSONArray(response);
-                            graphMaker = new HHRRBySexAndPeriod(jsonArray);
+                            femaleResearch = new graphMaker.FemaleResearch(jsonArray);
 
                             lineGraph   = findViewById(R.id.lineChart);
                             barGraph    = findViewById(R.id.barChart);
                             pointGraph  = findViewById(R.id.pointChart);
 
                             try{
-                                graphMaker.createLineGraph(lineGraph, "Line Graph", false);
-                                graphMaker.createBarGraph(barGraph, "Bar Graph", false);
-                                graphMaker.createPointGraph(pointGraph, "Point Graph", false);
+                                femaleResearch.createLineGraph(lineGraph, "Line Graph", false);
+                                femaleResearch.createBarGraph(barGraph, "Bar Graph", false);
+                                femaleResearch.createPointGraph(pointGraph, "Point Graph", false);
 
 
 
@@ -114,17 +114,11 @@ public class MainActivity extends AppCompatActivity{
         });
         // Add the request to the RequestQueue.
         queue.add(stringRequest);
-
-
-
-
-
-
     }
 
     private void setMyToolbar(){
         myToolbar = findViewById(R.id.toolbar);
-        myToolbar.setTitle("Active population 15-74 years-old");
+        myToolbar.setTitle("Female research by sector and period");
         myToolbar.setTitleTextColor(getResources().getColor(R.color.white));
 
         setSupportActionBar(myToolbar);
@@ -266,7 +260,7 @@ public class MainActivity extends AppCompatActivity{
                 break;
         }
 
-        Intent intent = new Intent(this, secondActivity.class);
+        Intent intent = new Intent(this, FRDetail.class);
         intent.putExtra("typeOfGraph", typeOfGraph);
         intent.putExtra("title", title);
 

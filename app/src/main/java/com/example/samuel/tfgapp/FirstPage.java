@@ -1,130 +1,43 @@
 package com.example.samuel.tfgapp;
 
-import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-
 import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-import com.jjoe64.graphview.GraphView;
-
-import org.json.JSONArray;
-
-import Session.Session;
-import graphMaker.HHRRBySexAndPeriod;
-
-public class MainActivity extends AppCompatActivity{
-
-    Toast toast;
+public class FirstPage extends AppCompatActivity {
 
     DrawerLayout mDrawerLayout;
     Toolbar myToolbar;
     NavigationView navigationView;
 
-    GraphView lineGraph, barGraph, pointGraph;
-
-    HHRRBySexAndPeriod graphMaker;
-
-    JSONArray jsonArray;
-    SwipeRefreshLayout mSwipeRefreshLayout;
-
     Intent intent;
 
+    Toast toast;
+
     @Override
-    protected void onCreate(final Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        mSwipeRefreshLayout = findViewById(R.id.swiperefresh);
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                Intent intent = getIntent();
-                finish();
-                startActivity(intent);
-                mSwipeRefreshLayout.setRefreshing(false);
-            }
-        });
-
-
+        setContentView(R.layout.activity_first_page);
 
         setMyToolbar();
         setDrawerLayout();
-
-
-        // Instantiate the RequestQueue.
-        RequestQueue queue = Volley.newRequestQueue(this);
-        String url ="http://192.168.0.25:8082/v1/data.json";
-
-        // Request a string response from the provided URL.
-
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        // Display the first 500 characters of the response string.
-                        try{
-                            jsonArray = new JSONArray(response);
-                            graphMaker = new HHRRBySexAndPeriod(jsonArray);
-
-                            lineGraph   = findViewById(R.id.lineChart);
-                            barGraph    = findViewById(R.id.barChart);
-                            pointGraph  = findViewById(R.id.pointChart);
-
-                            try{
-                                graphMaker.createLineGraph(lineGraph, "Line Graph", false);
-                                graphMaker.createBarGraph(barGraph, "Bar Graph", false);
-                                graphMaker.createPointGraph(pointGraph, "Point Graph", false);
-
-
-
-                            }catch (Exception e){e.printStackTrace();}
-
-                        }catch (Exception e){
-                            e.printStackTrace();
-                        }
-
-
-
-
-
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                System.out.println(error);
-            }
-        });
-        // Add the request to the RequestQueue.
-        queue.add(stringRequest);
-
-
-
-
-
-
     }
 
     private void setMyToolbar(){
         myToolbar = findViewById(R.id.toolbar);
-        myToolbar.setTitle("Active population 15-74 years-old");
+        myToolbar.setTitle("Welcome");
         myToolbar.setTitleTextColor(getResources().getColor(R.color.white));
 
         setSupportActionBar(myToolbar);
@@ -228,7 +141,7 @@ public class MainActivity extends AppCompatActivity{
                 return true;
 
             case R.id.action_dashboard:
-                intent = new Intent(this, secondActivity.class);
+                intent = new Intent(this, WelcomeActivity.class);
                 /*EditText editText = (EditText) findViewById(R.id.editText);
                 String message = editText.getText().toString();
                 intent.putExtra(EXTRA_MESSAGE, message);*/
@@ -250,27 +163,5 @@ public class MainActivity extends AppCompatActivity{
         }
     }
 
-    public void seeDetail(View mview){
-        String typeOfGraph = (String) mview.getTag();
-        String title = "";
-
-        switch (typeOfGraph){
-            case "lineChart":
-                title = "Line graph in Detail";
-                break;
-            case "barChart":
-                title = "Bar graph in Detail";
-                break;
-            case "pointChart":
-                title = "Point graph in Detail";
-                break;
-        }
-
-        Intent intent = new Intent(this, secondActivity.class);
-        intent.putExtra("typeOfGraph", typeOfGraph);
-        intent.putExtra("title", title);
-
-        startActivity(intent);
-    }
 
 }

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.samuel.tfgapp.secondActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/mainAppColor"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+
+    <com.jjoe64.graphview.GraphView android:id="@+id/generalChart"
+        android:layout_marginTop="60dp"
+        android:layout_width="match_parent"
+        android:layout_height="200dip" />
+
+    <LinearLayout android:id="@+id/splitLine"
+        android:layout_marginTop="30dp"
+        android:layout_below="@id/generalChart"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="@color/black"
+        android:orientation="horizontal"
+        />
+
+    <TableLayout android:id="@+id/detailTable"
+        android:layout_below="@+id/splitLine"
+        android:layout_marginTop="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:stretchColumns="*">
+        <TableRow>
+            <TextView
+                android:textStyle="bold"
+                android:gravity="center"
+                android:text="Years"
+                android:padding="3dip"
+                android:tag="Years/int"
+                android:clickable="true"
+                android:focusable="true"
+                android:onClick="orderBy"/>
+            <TextView
+                android:textStyle="bold"
+                android:gravity="center"
+                android:text="Companies"
+                android:padding="3dip"
+                android:tag="Companies/double"
+                android:clickable="true"
+                android:focusable="true"
+                android:onClick="orderBy"/>
+            <TextView
+                android:textStyle="bold"
+                android:text="H. Education"
+                android:gravity="center"
+                android:padding="3dip"
+                android:tag="Higher Education/double"
+                android:clickable="true"
+                android:focusable="true"
+                android:onClick="orderBy"/>
+            <TextView
+                android:textStyle="bold"
+                android:gravity="center"
+                android:text="Public Adm."
+                android:padding="3dip"
+                android:tag="Public administration/double"
+                android:clickable="true"
+                android:focusable="true"
+                android:onClick="orderBy"/>
+
+            <TextView
+                android:textStyle="bold"
+                android:gravity="center"
+                android:padding="3dip"
+                android:text="np institutions"
+                android:tag="Private non-profit institutions/double"
+                android:clickable="true"
+                android:focusable="true"
+                android:onClick="orderBy"/>
+        </TableRow>
+
+    </TableLayout>
+
+</RelativeLayout>

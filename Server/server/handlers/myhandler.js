@@ -7,6 +7,11 @@ exports.getcp1 = function(){
 	data_data.getcp1.apply(this, arguments);
 }
 
+exports.get_female_research = function(){
+
+	data_data.get_female_research.apply(this, arguments);
+}
+
 exports.add_data = function(newData, callback){
 	data_data.add_data(newData, callback);
 }

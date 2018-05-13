@@ -2,6 +2,46 @@ var db = require("./db.js"),
     async = require('async'),
     bcrypt = require('bcrypt');
 
+exports.get_female_research = function(){
+    var start, number, callback, ordervals, filterfieldvals;
+
+    switch (arguments.length) {
+      case 3:
+        start = arguments[0];
+        number = arguments[1];
+        callback = arguments[2];
+        break;
+      case 4:
+        start = arguments[0];
+        number = arguments[1];
+        ordervals = arguments[2];
+        callback = arguments[3];
+        break;
+      case 5:
+        filterfieldvals = arguments[0];
+        start = arguments[1];
+        number = arguments[2];
+        ordervals = arguments[3];
+        callback = arguments[4];
+        break;
+      default:
+        throw new Error("This is not a valid use");
+    }
+    
+    var filter = filterfieldvals ? filterfieldvals : {};
+    var output = [];
+    var orderby = ordervals ? ordervals : { name : 1 };
+
+    var cursor = db.femaleResearch.find(filter);
+    cursor.on("data", function (femaleResearch) {
+        output.push(femaleResearch);        
+    });
+    cursor.once("end", function () {
+
+        callback(null, output);
+    });
+}
+
 exports.getcp1 = function(){
     var start, number, callback, ordervals, filterfieldvals;
 

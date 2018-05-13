@@ -20,6 +20,19 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 app.use(express.static(__dirname + "/../static"));
 
+app.get("/v1/female_research.json", function (req, res) {
+    var start = req.query.start ? parseInt(req.query.start) : 0;
+    var pageSize = req.query.pageSize ? parseInt(req.query.pageSize) : 100;
+
+    data_handler.get_female_research(start, pageSize, function (err, data) {
+        if (err) {
+            return send_error_resp(res, err);
+        } else {
+            return send_success_resp(res, data);
+        }
+    });
+});
+
 app.get("/v1/data.json", function (req, res) {
     var start = req.query.start ? parseInt(req.query.start) : 0;
     var pageSize = req.query.pageSize ? parseInt(req.query.pageSize) : 100;

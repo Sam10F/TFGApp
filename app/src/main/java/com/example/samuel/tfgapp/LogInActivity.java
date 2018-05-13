@@ -68,7 +68,7 @@ public class LogInActivity extends AppCompatActivity {
     }
 
     public void goDemo(View view){
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, FirstPage.class);
         startActivity(intent);
     }
 
@@ -110,7 +110,7 @@ public class LogInActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         // response
-                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        Intent intent = new Intent(getApplicationContext(), FirstPage.class);
                         startActivity(intent);
                         String finalString = response.replace("[", "");
                         finalString = finalString.replace("]", "");
