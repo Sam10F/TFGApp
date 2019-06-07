@@ -134,10 +134,10 @@ exports.logIn = function(dataLogIn, callback){
 
 
     var cursor = db.dataLogIn.find({ "username": dataLogIn[0] }).limit(1);
-    cursor.on("data", function (recipe) {
-        //console.log(recipe.password);
-        success = bcrypt.compareSync(dataLogIn[1], recipe.password);
-        var usr = [recipe.username, recipe.email, recipe.password]
+    cursor.on("data", function (data) {
+        //console.log(data.password);
+        success = bcrypt.compareSync(dataLogIn[1], data.password);
+        var usr = [data.username, data.email, data.password]
         usrData = usr;
     });
     cursor.once("end", function () {
@@ -146,80 +146,59 @@ exports.logIn = function(dataLogIn, callback){
     });
 }
 
-exports.add_data = function (recipe_data, callback) {
+exports.add_data = function (data_data, callback) {
 
     async.waterfall([
-        // get a unique id for this new recipe.
+        // get a unique id for this new data.
         function (cb) {
-            get_unique_recipe_id(recipe_data, cb);
-            //db.cp1.insertOne(recipe_data, { w: 1 }, cb);
+            get_unique_data_id(data_data, cb);
+            //db.cp1.insertOne(data_data, { w: 1 }, cb);
         }
         
     ], function (err, results) {
         callback(err, results);
     });
 
-    /*try {
-        if (!recipe_data.SEXO) throw new Error("missing_sexo");
-        if (!recipe_data.RANGOS) throw new Error("missing_ranges");
-        if (!recipe_data.a2016) throw new Error("missing_year2016");
-    } catch (e) {
-        console.log("ERROOOOOOR");
-        callback({ error: e.message, message: "This is not a valid data."});
-    }
-
-
-    async.waterfall([
-        // get a unique id for this new recipe.
-        function (cb) {
-            get_unique_recipe_id(recipe_data, cb);
-            console.log(recipe_data);
-            db.cp1.insertOne(recipe_data, { w: 1 }, cb);
-        }
-        
-    ], function (err, results) {
-        callback(err, results);
-    });*/
 };
 
-exports.get_recipe_by_id = function (recipe_id, callback) {
-    var found_recipe = null;
+exports.get_data_by_id = function (data_id, callback) {
+    var found_data = null;
     
-    var cursor = db.recipes.find({ recipe_id: recipe_id }).limit(1);
-    cursor.on("data", function (recipe) {
-        found_recipe = recipe;
-        console.log("found: " + found_recipe);
+    var cursor = db.datas.find({ data_id: data_id }).limit(1);
+    cursor.on("data", function (data) {
+        found_data = data;
+        console.log("found: " + found_data);
 
     });
     cursor.on("end", function () {
-        console.log(JSON.stringify(found_recipe, null, 3));
-        callback(null, found_recipe);
+        console.log(JSON.stringify(found_data, null, 3));
+        callback(null, found_data);
     });
 };
 
 
 /**
- * helper function to generate a recipe_id for us.
+ * helper function to generate a data_id for us.
  */
-function get_unique_recipe_id (recipe_data, callback) {
-    if (!recipe_data.name) {
+function get_unique_data_id (data_data, callback) {
+    if (!data_data.name) {
         return undefined;
     }
 
     var ok = false;
 
-    var proposed_id = recipe_data.name.split(" ").join("_");
+    var proposed_id = data_data.name.split(" ").join("_");
 
     async.doUntil(
         function (cb) {
             proposed_id += "" + (new Date().getTime());
 
-            // only set this to true if we see a recipe!
+            // only set this to true if we see a data!
             ok = true;
-            var cursor = db.cp1.find({ recipe_id: proposed_id }).limit(1);
-            cursor.on("data", function (recipe) {
-                console.log("I got a recipe.....");
-                if (recipe) {
+            var cursor = db.cp1.find({ data_id: proposed_id }).limit(1);
+            cursor.on("data", function (data) {
+                console.log("I got a data.....");
+                if (data) {
                     ok = false;
                 }
             });
