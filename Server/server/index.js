@@ -54,14 +54,14 @@ app.post("/v1/login.json", function(req, res){
     var decoded = jwt.decode(str["loginToken"], "secret");
     var dataLogIn = [decoded["usr"], decoded["pswd"]];
 
-    data_handler.logIn(dataLogIn, function(err, recipe) {
+    data_handler.logIn(dataLogIn, function(err, data) {
         if (err) {
             console.log("Login Incorrecto...");
             return send_error_resp(res, err);
         } else {
             console.log("Login Correcto...");
-            console.log("EJE: " + recipe[1]);
-            return send_success_resp(res, recipe);
+            console.log("EJE: " + data[1]);
+            return send_success_resp(res, data);
         }
     });
 
@@ -75,11 +75,11 @@ app.post("/v1/edit.json", function(req, res){
     var decoded = jwt.decode(str["signupToken"], "secret");
     var dataEdit = [decoded["mail"], decoded["usr"], decoded["pswd"], decoded["oldUsrName"]];
 
-    data_handler.edit(dataEdit, function(err, recipe) {
+    data_handler.edit(dataEdit, function(err, data) {
         if (err) {
             return send_error_resp(res, err);
         } else {
-            return send_success_resp(res, recipe);
+            return send_success_resp(res, data);
         }
     });
 
@@ -93,11 +93,11 @@ app.post("/v1/signup.json", function(req, res){
     var decoded = jwt.decode(str["signupToken"], "secret");
     var dataSignUp = [decoded["mail"], decoded["usr"], decoded["pswd"]];
 
-    data_handler.signUp(dataSignUp, function(err, recipe) {
+    data_handler.signUp(dataSignUp, function(err, data) {
         if (err) {
             return send_error_resp(res, err);
         } else {
-            return send_success_resp(res, recipe);
+            return send_success_resp(res, data);
         }
     });
 
