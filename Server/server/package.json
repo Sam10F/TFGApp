@@ -9,7 +9,7 @@
   "author": "Samuel Diez",
   "license": "ISC",
   "dependencies": {
-    "async": "1.x",
+    "async": "3.x",
     "body-parser": "1.x",
     "express": "4.x",
     "mongodb": "2.x",
