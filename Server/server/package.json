@@ -16,7 +16,7 @@
     "morgan": "1.x",
     "net": "1.x",
     "bcrypt": "0.8",
-    "jsonwebtoken": "8.2.0",
+    "jsonwebtoken": "9.0.0",
     "jwt-simple": "0.5.1",
     "email-validator": "1.0.0",
     "password-validator": "4.0.0"
